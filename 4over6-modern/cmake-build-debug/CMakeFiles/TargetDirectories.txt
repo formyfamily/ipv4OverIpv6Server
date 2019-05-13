@@ -1,0 +1,3 @@
+/Users/Blink/ClionProjects/4over6-modern/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/Blink/ClionProjects/4over6-modern/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Blink/ClionProjects/4over6-modern/cmake-build-debug/CMakeFiles/4over6_modern.dir
