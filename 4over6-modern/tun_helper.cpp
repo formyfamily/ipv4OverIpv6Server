@@ -1,7 +1,3 @@
-//
-// Created by root on 17-5-15.
-//
-
 #include "tun_helper.h"
 
 tun_helper::tun_helper(std::string devname) {
@@ -27,14 +23,21 @@ std::string tun_helper::read_some() {
     return std::string(read_buf, nbytes);
 }
 
+std::string mkAddr(const std::string &str) {
+
+    return  std::to_string(int(str[0]) < 0 ? int(str[0]) + 256 : int(str[0])) + "."
+            + std::to_string(int(str[1]) < 0 ? int(str[1]) + 256 : int(str[1])) + "."
+            + std::to_string(int(str[2]) < 0 ? int(str[2]) + 256 : int(str[2])) + "."
+            + std::to_string(int(str[3]) < 0 ? int(str[3]) + 256 : int(str[3]));
+}
 
 int tun_helper::write_some(char *buf, int len) {
     std::string buffer(buf, len);
     std::cout << "Write to TUN data: " << std::string(buf, len) << std::endl;
     auto dst_ip = buffer.substr(16, 4);
     auto src_ip = buffer.substr(12, 4);
-    std::cout << "src: " + mkAddr(dst_ip).to_string() << std::endl;
-    std::cout << "dst: " + mkAddr(src_ip).to_string() << std::endl;
+    std::cout << "src: " + mkAddr(dst_ip) << std::endl;
+    std::cout << "dst: " + mkAddr(src_ip) << std::endl;
     auto nbytes = write(fd, buf, len);
     return nbytes;
 }
@@ -44,8 +47,8 @@ int tun_helper::write_some(const char *buf, int len) {
     std::cout << "Write to TUN data: " << std::string(buf, len) << std::endl;
     auto dst_ip = buffer.substr(16, 4);
     auto src_ip = buffer.substr(12, 4);
-    std::cout << "src: " + mkAddr(src_ip).to_string() << std::endl;
-    std::cout << "dst: " + mkAddr(dst_ip).to_string() << std::endl;
+    std::cout << "src: " + mkAddr(src_ip) << std::endl;
+    std::cout << "dst: " + mkAddr(dst_ip) << std::endl;
     auto nbytes = write(fd, buf, len);
     return nbytes;
 }
@@ -53,16 +56,16 @@ int tun_helper::write_some(std::string &buf) {
     return write_some(buf.c_str(), buf.length());
 }
 
-bool tun_helper::push_queue(std::string pkt) {
+void tun_helper::push_queue(std::string pkt) {
     wtTUNQue.push(pkt);
 }
+
 void tun_helper::tun_writer() {
     //std::cout << "Started Writer" << std::endl;
     std::string buf;
-    int nbytes;
     while(1) {
         wtTUNQue.pop(buf);
-        nbytes = write(fd, buf.c_str(), buf.length());
+        write(fd, buf.c_str(), buf.length());
     }
 }
 
@@ -77,7 +80,7 @@ void tun_helper::tun_reader() {
         //std::cout << "src: " + mkAddr(src_ip).to_string() << std::endl;
         //std::cout << "dst: " + mkAddr(dst_ip).to_string() << std::endl;
         //auto conn = ip_pool::getInstance()->getConnByIP(mkAddr(dst_ip));
-        auto conn = ip_pool::getInstance()->getConnByIP(mkAddrStr(dst_ip));
+        auto conn = ClientConnection::getConnectionByIp(mkAddr(dst_ip));
         if (conn == NULL)
             continue;
         int len = buf.length();

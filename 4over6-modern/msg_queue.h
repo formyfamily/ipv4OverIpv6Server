@@ -1,9 +1,5 @@
-//
-// Created by root on 17-5-19.
-//
-
-#ifndef INC_4OVER6_MODERN_MSG_QUEUE_H
-#define INC_4OVER6_MODERN_MSG_QUEUE_H
+#pragma once
+#include "common.h"
 #include <iostream>
 #include <queue>
 #include <mutex>
@@ -29,5 +25,3 @@ private:
     std::condition_variable cond_;
 
 };
-
-#endif //INC_4OVER6_MODERN_MSG_QUEUE_H
