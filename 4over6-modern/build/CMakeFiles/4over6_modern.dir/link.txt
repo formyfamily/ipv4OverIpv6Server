@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall   CMakeFiles/4over6_modern.dir/clientConnection.cpp.o CMakeFiles/4over6_modern.dir/main.cpp.o CMakeFiles/4over6_modern.dir/msg_queue.cpp.o CMakeFiles/4over6_modern.dir/server.cpp.o CMakeFiles/4over6_modern.dir/tun_helper.cpp.o  -o 4over6_modern -lpthread 

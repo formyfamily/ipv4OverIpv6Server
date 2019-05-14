@@ -1,3 +1,0 @@
-/home/kzf/4over6-modern/4over6-modern/4over6-modern/build/CMakeFiles/rebuild_cache.dir
-/home/kzf/4over6-modern/4over6-modern/4over6-modern/build/CMakeFiles/edit_cache.dir
-/home/kzf/4over6-modern/4over6-modern/4over6-modern/build/CMakeFiles/4over6_modern.dir

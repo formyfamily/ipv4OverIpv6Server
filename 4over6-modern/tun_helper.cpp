@@ -20,6 +20,7 @@ tun_helper::tun_helper(std::string devname) {
 std::string tun_helper::read_some() {
     static char read_buf[1600];
     auto nbytes = read(fd, read_buf, sizeof(read_buf));
+    printf("readed from tun with length %d: %s\n", nbytes, read_buf) ;
     return std::string(read_buf, nbytes);
 }
 
